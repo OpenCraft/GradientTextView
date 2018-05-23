@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GradientTextView">
+        <attr name="color_array" format="reference" />
+        <attr name="color_span_array" format="reference" />
+        <attr name="angle" format="integer" />
+        <attr name="gradient_start" format="enum">
+            <enum name="TOP_LEFT" value="0" />
+            <enum name="TOP_CENTER" value="1" />
+            <enum name="MIDDLE_RIGHT" value="2" />
+            <enum name="MIDDLE_LEFT" value="3" />
+            <enum name="TOP_RIGHT" value="4" />
+            <enum name="BOTTOM_LEFT" value="5" />
+            <enum name="BOTTOM_CENTER" value="6" />
+            <enum name="BOTTOM_RIGHT" value="7" />
+        </attr>
+        <attr name="gradient_end" format="enum">
+            <enum name="TOP_LEFT" value="0" />
+            <enum name="TOP_CENTER" value="1" />
+            <enum name="MIDDLE_RIGHT" value="2" />
+            <enum name="MIDDLE_LEFT" value="3" />
+            <enum name="TOP_RIGHT" value="4" />
+            <enum name="BOTTOM_LEFT" value="5" />
+            <enum name="BOTTOM_CENTER" value="6" />
+            <enum name="BOTTOM_RIGHT" value="7" />
+        </attr>
+    </declare-styleable>
+</resources>

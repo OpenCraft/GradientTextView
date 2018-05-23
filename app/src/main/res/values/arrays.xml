@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gradient_default">
+        <item>#000000</item>
+        <item>#FFFFFF</item>
+    </string-array>
+    
+    <integer-array name="gradient_color_span_default">
+        <item>1</item>
+        <item>1</item>
+    </integer-array>
+</resources>
