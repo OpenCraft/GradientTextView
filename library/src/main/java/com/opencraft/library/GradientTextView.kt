@@ -1,4 +1,4 @@
-package com.opencraft.android.gradienttextview.control
+package com.opencraft.library
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,6 @@ import android.graphics.Point
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.widget.TextView
-import com.opencraft.android.gradienttextview.R
 
 
 class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : TextView(context, attrs, defStyleAttr) {

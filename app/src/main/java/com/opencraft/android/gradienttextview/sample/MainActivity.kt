@@ -1,4 +1,4 @@
-package com.opencraft.android.gradienttextview.demo
+package com.opencraft.android.gradienttextview.sample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
