@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f9f9f9"
-    android:orientation="vertical"
-    tools:context=".sample.MainActivity">
+<layout>
 
-    <com.opencraft.library.GradientTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:text="aaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaaa"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:color_array="@array/gradient_default"
-        app:color_span_array="@array/gradient_color_span_default"
-        app:gradient_end="BOTTOM_RIGHT"
-        app:gradient_start="TOP_LEFT" />
+    <data>
 
-    <com.opencraft.library.GradientTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:text="aaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaaa"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:angle="-45"
-        app:color_array="@array/gradient_default"
-        app:color_span_array="@array/gradient_color_span_default" />
+        <variable
+            name="vm"
+            type="com.opencraft.android.gradienttextview.sample.MainViewModel" />
+    </data>
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f9f9f9"
+        android:orientation="vertical"
+        tools:context=".sample.MainActivity">
+
+        <com.opencraft.library.GradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:text="aaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaaa"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:color_array="@array/gradient_default"
+            app:color_span_array="@array/gradient_color_span_default"
+            app:gradient_end="BOTTOM_RIGHT"
+            app:gradient_start="TOP_LEFT" />
+
+        <com.opencraft.library.GradientTextView
+            android:id="@+id/gradient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:text="@{vm.text}"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:angle="-45"
+            app:color_array="@array/gradient_default"
+            app:color_span_array="@array/gradient_color_span_default" />
+
+    </LinearLayout>
+</layout>

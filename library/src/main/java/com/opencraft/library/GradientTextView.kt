@@ -3,14 +3,27 @@ package com.opencraft.library
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
+import android.databinding.BindingAdapter
+import android.databinding.InverseBindingListener
+import android.databinding.InverseBindingMethod
+import android.databinding.InverseBindingMethods
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Point
 import android.graphics.Shader
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.widget.TextView
 
 
+@InverseBindingMethods(
+        InverseBindingMethod(
+                type = GradientTextView::class,
+                attribute = "android:text",
+                method = "getText"
+        )
+)
 class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : TextView(context, attrs, defStyleAttr) {
 
 
@@ -151,5 +164,35 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
         val startX = centerX + (width - centerX) * Math.cos(radians) - (centerY - centerY) * Math.sin(radians);
         val startY = centerY + (width - centerX) * Math.sin(radians) + (centerY - centerY) * Math.cos(radians);
         return Point(startX.toInt(), startY.toInt())
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter(value = ["android:textAttrChanged"])
+        fun setListener(editText: GradientTextView, listener: InverseBindingListener?) {
+            if (listener != null) {
+                editText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+                    }
+
+                    override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        listener.onChange()
+                    }
+                })
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:text")
+        fun setColor(editText: GradientTextView, text: String) {
+            if (text != editText.getText()) {
+                editText.setText(text)
+            }
+        }
     }
 }
