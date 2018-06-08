@@ -11,10 +11,10 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Point
 import android.graphics.Shader
+import android.support.v7.widget.AppCompatTextView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.widget.TextView
 
 
 @InverseBindingMethods(
@@ -24,7 +24,7 @@ import android.widget.TextView
                 method = "getText"
         )
 )
-class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : TextView(context, attrs, defStyleAttr) {
+class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatTextView(context, attrs, defStyleAttr) {
 
 
     constructor(context: Context) : this(context, null)
@@ -189,9 +189,9 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
 
         @JvmStatic
         @BindingAdapter("android:text")
-        fun setColor(editText: GradientTextView, text: String) {
-            if (text != editText.getText()) {
-                editText.setText(text)
+        fun setText(editText: GradientTextView, text: String?) {
+            if (text != editText.text) {
+                editText.text = text
             }
         }
     }
