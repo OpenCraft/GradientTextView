@@ -3,33 +3,17 @@ package com.opencraft.library
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
-import android.databinding.BindingAdapter
-import android.databinding.InverseBindingListener
-import android.databinding.InverseBindingMethod
-import android.databinding.InverseBindingMethods
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Point
 import android.graphics.Shader
 import android.support.v7.widget.AppCompatTextView
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 
-
-@InverseBindingMethods(
-        InverseBindingMethod(
-                type = GradientTextView::class,
-                attribute = "android:text",
-                method = "getText"
-        )
-)
 class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatTextView(context, attrs, defStyleAttr) {
-
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
 
     private var gradientColors = intArrayOf(Color.BLACK, Color.WHITE)
     private var gradientColorPos = floatArrayOf(0f, 1f)
@@ -71,7 +55,6 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     private fun loadPoints(typedArray: TypedArray) {
         startOption = typedArray.getInteger(R.styleable.GradientTextView_gradient_start, -1)
         endOption = typedArray.getInteger(R.styleable.GradientTextView_gradient_end, -1)
-
     }
 
     private fun loadColorsSpan(typedArray: TypedArray) {
@@ -142,16 +125,16 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun getPointFromEnum(startOption: Int): Point {
-        when (startOption) {
-            TOP_LEFT -> return Point(0, 0)
-            TOP_CENTER -> return Point(width / 2, 0)
-            MIDDLE_RIGHT -> return Point(width, height / 2)
-            MIDDLE_LEFT -> return Point(0, height / 2)
-            TOP_RIGHT -> return Point(width, 0)
-            BOTTOM_LEFT -> return Point(0, height)
-            BOTTOM_CENTER -> return Point(width / 2, height)
-            BOTTOM_RIGHT -> return Point(width, height)
-            else -> return Point(0, 0)
+        return when (startOption) {
+            TOP_LEFT -> Point(0, 0)
+            TOP_CENTER -> Point(width / 2, 0)
+            MIDDLE_RIGHT -> Point(width, height / 2)
+            MIDDLE_LEFT -> Point(0, height / 2)
+            TOP_RIGHT -> Point(width, 0)
+            BOTTOM_LEFT -> Point(0, height)
+            BOTTOM_CENTER -> Point(width / 2, height)
+            BOTTOM_RIGHT -> Point(width, height)
+            else -> Point(0, 0)
         }
     }
 
@@ -159,40 +142,10 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
         val centerX = width / 2f
         val centerY = height / 2f
 
-        var radians = Math.toRadians(angle)
+        val radians = Math.toRadians(angle)
 
         val startX = centerX + (width - centerX) * Math.cos(radians) - (centerY - centerY) * Math.sin(radians);
         val startY = centerY + (width - centerX) * Math.sin(radians) + (centerY - centerY) * Math.cos(radians);
         return Point(startX.toInt(), startY.toInt())
-    }
-
-    companion object {
-        @JvmStatic
-        @BindingAdapter(value = ["android:textAttrChanged"])
-        fun setListener(editText: GradientTextView, listener: InverseBindingListener?) {
-            if (listener != null) {
-                editText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
-                    }
-
-                    override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        listener.onChange()
-                    }
-                })
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter("android:text")
-        fun setText(editText: GradientTextView, text: String?) {
-            if (text != editText.text) {
-                editText.text = text
-            }
-        }
     }
 }
