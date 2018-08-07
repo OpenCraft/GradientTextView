@@ -3,6 +3,8 @@ package com.opencraft.library
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
+import android.databinding.InverseBindingMethod
+import android.databinding.InverseBindingMethods
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Point
@@ -10,6 +12,7 @@ import android.graphics.Shader
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 
+@InverseBindingMethods(InverseBindingMethod(type = GradientTextView::class, attribute = "android:text"))
 class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     constructor(context: Context) : this(context, null)
