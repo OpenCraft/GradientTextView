@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="gradient_default">
-        <item>#000000</item>
-        <item>#FFFFFF</item>
-    </string-array>
+    <integer-array name="gradient_default">
+        <item>@android:color/holo_red_dark</item>
+        <item>@android:color/holo_blue_bright</item>
+    </integer-array>
     
     <integer-array name="gradient_color_span_default">
         <item>1</item>

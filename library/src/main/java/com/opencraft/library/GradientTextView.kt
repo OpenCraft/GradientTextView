@@ -1,38 +1,28 @@
 package com.opencraft.library
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
-import android.databinding.InverseBindingMethod
-import android.databinding.InverseBindingMethods
-import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Point
-import android.graphics.Shader
+import android.graphics.*
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 
-@InverseBindingMethods(InverseBindingMethod(type = GradientTextView::class, attribute = "android:text"))
 class GradientTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    private var gradientColors = intArrayOf(Color.BLACK, Color.WHITE)
     private var gradientColorPos = floatArrayOf(0f, 1f)
-    private var linearGradient: LinearGradient? = null
     private var angle = 0.0
     private var startOption = -1
     private var endOption = -1
+    private var changedColors = true
 
-    val TOP_LEFT = 0
-    val TOP_CENTER = 1
-    val MIDDLE_RIGHT = 2
-    val MIDDLE_LEFT = 3
-    val TOP_RIGHT = 4
-    val BOTTOM_LEFT = 5
-    val BOTTOM_CENTER = 6
-    val BOTTOM_RIGHT = 7
+    var gradientColors = intArrayOf(Color.BLACK, Color.WHITE)
+        set(value) {
+            field = value
+            changedColors = true
+            invalidate()
+        }
 
     init {
         attrs?.let {
@@ -49,6 +39,18 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
 
             typedArray.recycle()
         }
+    }
+
+    private fun getLinearGradient(): LinearGradient {
+        val gradientStartPoint = getStartPoint()
+        val gradientEndPoint = getEndPoint()
+        return LinearGradient(gradientStartPoint.x.toFloat(),
+                gradientStartPoint.y.toFloat(),
+                gradientEndPoint.x.toFloat(),
+                gradientEndPoint.y.toFloat(),
+                gradientColors,
+                gradientColorPos,
+                Shader.TileMode.CLAMP)
     }
 
     private fun loadAngle(typedArray: TypedArray) {
@@ -75,37 +77,23 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun loadColors(typedArray: TypedArray) {
-        val colors = resources.getStringArray(typedArray
-                .getResourceId(R.styleable.GradientTextView_color_array, R.array.gradient_default))
-        colors?.let {
-            gradientColors = IntArray(it.size)
-            for (i in 0 until it.size) {
-                gradientColors[i] = Color.parseColor(it[i])
-            }
-        }
+        gradientColors  = resources.getIntArray(typedArray
+                .getResourceId(R.styleable.GradientTextView_gradientColors, R.array.gradient_default))
     }
 
-    @SuppressLint("DrawAllocation")
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        if (changed) {
-
-            val startPoint = getStartPoint()
-            val endPoint = getEndPoint()
-
-            linearGradient = LinearGradient(startPoint.x.toFloat(), startPoint.y.toFloat(), endPoint.x.toFloat(), endPoint.y.toFloat(),
-                    gradientColors,
-                    gradientColorPos,
-                    Shader.TileMode.CLAMP)
-            paint.shader = linearGradient
+    override fun onDraw(canvas: Canvas?) {
+        if (changedColors) {
+            changedColors = false
+            paint.shader = getLinearGradient()
         }
+        super.onDraw(canvas)
     }
 
     private fun getEndPoint(): Point {
-        if (startOption > -1 && endOption > -1) {
-            return getPointFromEnum(endOption)
+        return if (startOption > -1 && endOption > -1) {
+            getPointFromEnum(endOption)
         } else {
-            return calcEndFromAngle()
+            calcEndFromAngle()
 
         }
     }
@@ -120,10 +108,10 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun getStartPoint(): Point {
-        if (startOption > -1 && endOption > -1) {
-            return getPointFromEnum(startOption)
+        return if (startOption > -1 && endOption > -1) {
+            getPointFromEnum(startOption)
         } else {
-            return calcStartFromAngle()
+            calcStartFromAngle()
         }
     }
 
@@ -150,5 +138,16 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
         val startX = centerX + (width - centerX) * Math.cos(radians) - (centerY - centerY) * Math.sin(radians);
         val startY = centerY + (width - centerX) * Math.sin(radians) + (centerY - centerY) * Math.cos(radians);
         return Point(startX.toInt(), startY.toInt())
+    }
+
+    companion object {
+        const val TOP_LEFT = 0
+        const val TOP_CENTER = 1
+        const val MIDDLE_RIGHT = 2
+        const val MIDDLE_LEFT = 3
+        const val TOP_RIGHT = 4
+        const val BOTTOM_LEFT = 5
+        const val BOTTOM_CENTER = 6
+        const val BOTTOM_RIGHT = 7
     }
 }
