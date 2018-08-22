@@ -3,6 +3,7 @@
     <declare-styleable name="GradientTextView">
         <attr name="color_array" format="reference" />
         <attr name="gradientColors" format="reference" />
+        <attr name="gradientColorsSpan" format="reference" />
         <attr name="color_span_array" format="reference" />
         <attr name="angle" format="integer" />
         <attr name="gradient_start" format="enum">

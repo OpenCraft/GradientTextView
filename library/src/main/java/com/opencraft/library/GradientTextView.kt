@@ -24,6 +24,13 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
             invalidate()
         }
 
+    var gradientColorsSpan = intArrayOf(1, 1)
+        set(value) {
+            field = value
+            changedColors = true
+            invalidate()
+        }
+
     init {
         attrs?.let {
 
@@ -42,6 +49,7 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun getLinearGradient(): LinearGradient {
+        calcColorPos()
         val gradientStartPoint = getStartPoint()
         val gradientEndPoint = getEndPoint()
         return LinearGradient(gradientStartPoint.x.toFloat(),
@@ -63,9 +71,12 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun loadColorsSpan(typedArray: TypedArray) {
-        val colorsSpan = resources.getIntArray(typedArray
+        gradientColorsSpan = resources.getIntArray(typedArray
                 .getResourceId(R.styleable.GradientTextView_color_span_array, R.array.gradient_color_span_default))
-        colorsSpan?.let {
+    }
+
+    private fun calcColorPos() {
+        gradientColorsSpan.let {
             gradientColorPos = FloatArray(it.size)
             gradientColorPos[0] = 0f //first color must be at the start
             val sum = it.sum().toFloat()
@@ -77,7 +88,7 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     private fun loadColors(typedArray: TypedArray) {
-        gradientColors  = resources.getIntArray(typedArray
+        gradientColors = resources.getIntArray(typedArray
                 .getResourceId(R.styleable.GradientTextView_gradientColors, R.array.gradient_default))
     }
 

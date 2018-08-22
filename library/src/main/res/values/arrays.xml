@@ -4,8 +4,19 @@
         <item>@android:color/holo_red_dark</item>
         <item>@android:color/holo_blue_bright</item>
     </integer-array>
-    
+    <integer-array name="gradient_2">
+        <item>@android:color/holo_red_dark</item>
+        <item>@android:color/white</item>
+        <item>@android:color/holo_blue_bright</item>
+    </integer-array>
+
     <integer-array name="gradient_color_span_default">
+        <item>1</item>
+        <item>1</item>
+    </integer-array>
+
+    <integer-array name="gradient_color_span_2">
+        <item>1</item>
         <item>1</item>
         <item>1</item>
     </integer-array>

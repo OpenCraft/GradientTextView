@@ -24,10 +24,10 @@
             android:text="aaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaa\naaaaaaaaaaaaaa"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:gradient_end="BOTTOM_RIGHT"
-            app:gradient_start="TOP_LEFT"
+            app:gradientColorsSpan="@{vm.colorsSpan}"
             app:gradientColors="@{vm.colors}"
-            />
+            app:gradient_end="BOTTOM_RIGHT"
+            app:gradient_start="TOP_LEFT" />
 
         <com.opencraft.library.GradientTextView
             android:id="@+id/gradient"
@@ -38,8 +38,8 @@
             android:textSize="22sp"
             android:textStyle="bold"
             app:angle="-45"
-            app:gradientColors="@array/gradient_default"
-            app:color_span_array="@array/gradient_color_span_default" />
+            app:color_span_array="@array/gradient_color_span_default"
+            app:gradientColors="@array/gradient_default" />
 
     </LinearLayout>
 </layout>
