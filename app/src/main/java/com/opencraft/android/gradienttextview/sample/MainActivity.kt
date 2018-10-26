@@ -14,8 +14,10 @@ class MainActivity : AppCompatActivity() {
         val vm = MainViewModel(this)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         binding.vm = vm
-//        binding.gradient.postDelayed({
-//            binding.gradient.gradientColors = intArrayOf(Color.BLUE, Color.GREEN)
-//        }, 1000)
+        binding.gradient.postDelayed({
+            vm.text.set("aaaaaa\naaaaaa\naaaaaaa\naaaaaaaa")
+        }, 1000)
+
+
     }
 }

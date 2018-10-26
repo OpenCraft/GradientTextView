@@ -16,6 +16,7 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     private var startOption = -1
     private var endOption = -1
     private var changedColors = true
+    private var changedSize = false
 
     var gradientColors = intArrayOf(Color.BLACK, Color.WHITE)
         set(value) {
@@ -93,8 +94,12 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
     }
 
     override fun onDraw(canvas: Canvas?) {
-        if (changedColors) {
+        if (changedColors ) {
             changedColors = false
+            paint.shader = getLinearGradient()
+        }
+        if (changedSize) {
+            changedSize = false
             paint.shader = getLinearGradient()
         }
         super.onDraw(canvas)
@@ -149,6 +154,11 @@ class GradientTextView constructor(context: Context, attrs: AttributeSet?, defSt
         val startX = centerX + (width - centerX) * Math.cos(radians) - (centerY - centerY) * Math.sin(radians);
         val startY = centerY + (width - centerX) * Math.sin(radians) + (centerY - centerY) * Math.cos(radians);
         return Point(startX.toInt(), startY.toInt())
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        changedColors = true
     }
 
     companion object {
